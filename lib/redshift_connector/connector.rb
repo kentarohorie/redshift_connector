@@ -45,6 +45,8 @@ module RedshiftConnector
         dest_table: table,
         condition:,
         columns:,
+        src_columns: columns,
+        dest_columns: columns,
         delete_cond: nil,
         upsert_columns: nil,
         bucket: nil,
@@ -72,14 +74,14 @@ module RedshiftConnector
         bundle_params: bundle_params,
         schema: schema,
         table: src_table,
-        columns: columns,
+        columns: src_columns,
         condition: condition,
         enable_cast: enable_cast,
         logger: logger
       )
       importer = Importer.for_delta_upsert(
         table: dest_table,
-        columns: columns,
+        columns: dest_columns,
         delete_cond: delete_cond,
         upsert_columns: upsert_columns,
         logger: logger
@@ -122,6 +124,8 @@ module RedshiftConnector
         src_table: table,
         dest_table: table,
         columns:,
+        src_columns: columns,
+        dest_columns: columns,
         bucket: nil,
         txn_id: nil,
         filter: nil,
@@ -144,14 +148,14 @@ module RedshiftConnector
         bundle_params: bundle_params,
         schema: schema,
         table: src_table,
-        columns: columns,
+        columns: src_columns,
         enable_cast: enable_cast,
         logger: logger
       )
       importer = Importer.for_rebuild(
         strategy: strategy,
         table: dest_table,
-        columns: columns,
+        columns: dest_columns,
         logger: logger
       )
       new(exporter: exporter, importer: importer, filter: filter, logger: logger)
